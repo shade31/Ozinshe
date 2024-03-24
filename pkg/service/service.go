@@ -4,7 +4,7 @@ import "Ozinshe/pkg/repository"
 
 type Authorization interface {
 	CreateUser(user repository.SignupUser) (int, error)
-	// GenerateToken(username, password string) (string, error)
+	GenerateToken(email, password string) (string, error)
 	// ParseToken(token string) (int, error)
 }
 

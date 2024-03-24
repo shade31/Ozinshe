@@ -34,7 +34,22 @@ func (h *Handler) signUp(c *gin.Context) {
 	})
 }
 
-// type signInInput struct {
-// 	Email    string `json:"email"`
-// 	Password string `json:"password"`
-// }
+func (h *Handler) signIn(c *gin.Context) {
+	var input repository.SignInInput
+	if err := c.BindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": "невалидный JSON"})
+		return
+	}
+
+	log.Printf("email: %s, Полученные пароль: %s", input.Email, input.Password)
+
+	token, err := h.services.Authorization.GenerateToken(input.Email, input.Password)
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, map[string]interface{}{
+		"token": token,
+	})
+}

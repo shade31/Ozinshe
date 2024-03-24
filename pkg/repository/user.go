@@ -1,7 +1,7 @@
 package repository
 
 type User struct {
-	Id         int    `json:"id"`
+	Id         int    `json:"-" db:"id"`
 	Email      string `json:"email"`
 	Password   string `json:"password"`
 	Name       string `json:"name"`
@@ -18,13 +18,7 @@ type SignupUser struct {
 	ConfirmPassword string `json:"confirm_password"`
 }
 
-// Создание юзера DB
-// func InsertQuery(p *pgxpool.Pool, user SignupUser) error {
-// 	_, err := p.Exec(context.Background(), "insert into users(email, password) values($1, $2) returning id", user.Email, user.Password)
-// 	if err != nil {
-// 		log.Fatal("Ошибка при записи данных в таблицу", err)
-// 		return err
-// 	}
-// 	fmt.Println("Новая запись успешно добавлена в таблицу users")
-// 	return nil
-// }
+type SignInInput struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
