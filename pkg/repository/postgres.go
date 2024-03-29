@@ -6,8 +6,6 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
-// var Database *pgxpool.Pool
-
 const (
 	usersTable = "users"
 )
